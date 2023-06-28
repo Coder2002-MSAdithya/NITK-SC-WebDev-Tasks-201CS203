@@ -1,0 +1,81 @@
+<header>
+    <nav>
+      <a class="logo" href="/">
+          <img src="/images/logo.png" alt="ConnectED Logo">
+          <h1>ConnectED</h1>
+      </a>
+      <ul>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <% if (user) { %>
+          <li class="user-dropdown">
+            <button id="user-dropdown" class="dropdown-btn">
+              <%= user.name %>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul id="user-options" class="dropdown-menu">
+              <li><a href="/logout">Logout</a></li>
+              <li><a href="/profile">View Profile</a></li>
+            </ul>
+          </li>
+          <% } else { %>
+          <li><a href="/login" class="login-btn">Login</a></li>
+          <% } %>
+          <% if (user) { %>
+          <li>
+            <button id="notifications-btn" class="notifications-btn">
+              <i class="fas fa-bell"></i>
+              <span class="badge">3</span>
+            </button>
+            <div id="notifications-container" class="notifications-container">
+              <ul class="notifications-list">
+                <li class="notification">Notification 1</li>
+                <li class="notification">Notification 2</li>
+                <li class="notification">Notification 3</li>
+              </ul>
+            </div>
+          </li>
+          <li><a href="/help" class="help-btn"><i class="fas fa-question-circle"></i></a></li>
+          <% } %>
+      </ul>
+    </nav>
+</header>
+<% if(user){ %>
+  <script src="https://kit.fontawesome.com/8565cf1e08.js" crossorigin="anonymous"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // User dropdown menu
+      var userDropdown = document.getElementById("user-dropdown");
+      var userOptions = document.getElementById("user-options");
+
+      if (userDropdown && userOptions) {
+        userDropdown.addEventListener("click", function () {
+          userOptions.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!userDropdown.contains(event.target) && !userOptions.contains(event.target)) {
+            userOptions.classList.remove("show");
+          }
+        });
+      }
+
+      // Notifications button
+      var notificationsBtn = document.getElementById("notifications-btn");
+      var notificationsContainer = document.getElementById("notifications-container");
+
+      if (notificationsBtn && notificationsContainer) {
+        notificationsBtn.addEventListener("click", function () {
+          notificationsContainer.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!notificationsBtn.contains(event.target) && !notificationsContainer.contains(event.target)) {
+            notificationsContainer.classList.remove("show");
+          }
+        });
+      }
+    });
+  </script>
+  <%}%>

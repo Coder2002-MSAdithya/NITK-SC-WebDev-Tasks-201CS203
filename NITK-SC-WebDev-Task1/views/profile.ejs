@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+</head>
+<body>
+    <!-- Include the header partial -->
+    <%- include("./partials/header.ejs") %>
+    <div class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-info">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<%= user.name %>" disabled>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= user.email %>" disabled>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" value="<%= user.phone %>" required>
+            
+            <label for="bio">Bio:</label>
+            <textarea id="bio" name="bio" disabled><%= user.bio %></textarea>
+            <label>Skills:</label>
+            <div class="skills-checkboxes">
+                <label>
+                    <input type="checkbox" name="skills" value="WEB_DEV" disabled>
+                    <span>Web Development</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="APP_DEV" disabled>
+                    <span>App Development</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="SOFTWARE_TESTING" disabled>
+                    <span>Software Testing</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="MATH" disabled>
+                    <span>Mathematics</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="ML" disabled>
+                    <span>Machine Learning</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="CLOUD" disabled>
+                    <span>Cloud Computing</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="TEAM" disabled>
+                    <span>Team Building</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="COMM" disabled>
+                    <span>Communication</span>
+                </label>
+                <label>
+                    <input type="checkbox" name="skills" value="HTML" disabled>
+                    <span>Problem Solving</span>
+                </label>
+            </div>
+            <button id="edit-btn">Edit</button>
+            <button id="save-btn" style="display: none;">Save</button>
+        </div>
+    </div>
+    <!-- Include the footer partial -->
+    <%- include("./partials/footer.ejs") %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const editBtn = document.getElementById("edit-btn");
+            const saveBtn = document.getElementById("save-btn");
+            const inputs = document.querySelectorAll(".profile-info input, .profile-info textarea");
+            
+            editBtn.addEventListener("click", function() {
+                // Enable input fields for editing
+                inputs.forEach(function(input) {
+                    input.removeAttribute("disabled");
+                });
+                
+                // Show the save button and hide the edit button
+                saveBtn.style.display = "block";
+                editBtn.style.display = "none";
+            });
+            
+            saveBtn.addEventListener("click", function() {
+                // Disable input fields to prevent further editing
+                inputs.forEach(function(input) {
+                    input.setAttribute("disabled", true);
+                });
+                
+                // Show the edit button and hide the save button
+                editBtn.style.display = "block";
+                saveBtn.style.display = "none";
+                
+                // Perform the save operation using AJAX or form submission
+                // Send the updated user information to the server
+                // Update the user data in the backend and respond accordingly
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const bio = document.getElementById('bio').value
+                // Add any other input values you have in the form
+
+                // Create an object to store the user data
+                const userData = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    bio: bio
+                    // Add any other properties you have in the form
+                };
+
+                // Send the POST request using AJAX
+                fetch('/profile', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the server
+                    console.log(data); // You can perform further actions based on the response
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

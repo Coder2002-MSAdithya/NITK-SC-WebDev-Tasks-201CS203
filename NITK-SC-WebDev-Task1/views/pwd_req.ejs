@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Requirements</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" type="text/css" href="/css/docs.css">
+  <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<body>
+  <%- include("./partials/header.ejs") %>
+  <div class="docs-container">
+    <h2>Password Requirements</h2>
+    <ul>
+      <li>Password must be at least 8 characters long</li>
+      <li>Password must contain at least one uppercase letter</li>
+      <li>Password must contain at least one lowercase letter</li>
+      <li>Password must contain at least one numeric digit</li>
+      <li>Password must contain at least one special character</li>
+    </ul>
+    <a class="button" href="/signup">Back to Sign Up</a>
+  </div>
+  <%- include("./partials/footer.ejs") %>
+</body>
+</html>
